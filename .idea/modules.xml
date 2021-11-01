@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Assistant.iml" filepath="$PROJECT_DIR$/.idea/modules/Assistant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Assistant.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Assistant.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Assistant.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Assistant.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Assistant.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Assistant.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Assistant.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Assistant.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/deps/deps.iml" filepath="$PROJECT_DIR$/.idea/modules/deps/deps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/deps/deps.main.iml" filepath="$PROJECT_DIR$/.idea/modules/deps/deps.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/deps/deps.test.iml" filepath="$PROJECT_DIR$/.idea/modules/deps/deps.test.iml" />
+    </modules>
+  </component>
+</project>
