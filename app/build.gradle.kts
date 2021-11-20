@@ -67,6 +67,10 @@ dependencies {
     implementation(deps.compose.util)
     implementation(deps.compose.unit)
 
+    testImplementation(deps.test.junit)
+    testImplementation(deps.test.androidXSspresso)
+    testImplementation(deps.test.androidxJunit)
+
     implementation("com.google.mlkit:text-recognition:16.0.0-beta1")
     implementation("com.google.mlkit:text-recognition-chinese:16.0.0-beta1")
     implementation("com.google.mlkit:text-recognition-japanese:16.0.0-beta1")
@@ -76,5 +80,6 @@ dependencies {
     implementHilt()
     implementSquareup()
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+//    implementation("com.github.iglaweb:AutoSizeTextView:v1.0")
 
 }

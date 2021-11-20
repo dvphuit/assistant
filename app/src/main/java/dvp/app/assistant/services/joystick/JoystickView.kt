@@ -1,54 +1,43 @@
-package dvp.app.assistant.services
+package dvp.app.assistant.services.joystick
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.PointF
+import android.graphics.*
+import android.os.Build
 import android.os.CountDownTimer
-import android.util.AttributeSet
 import android.util.Log
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.BounceInterpolator
+import androidx.annotation.RequiresApi
+import dvp.app.assistant.services.joystick.JSDirection
+import dvp.app.assistant.services.joystick.JSState
 import kotlin.math.atan2
 import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+@RequiresApi(Build.VERSION_CODES.O)
+@SuppressLint("ViewConstructor")
+class JoystickView constructor(context: Context) : View(context) {
 
-enum class Direction {
-    CENTER,
-    UP,
-    LEFT,
-    RIGHT,
-    BOTTOM,
-}
+    private val wm by lazy {
+        context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    }
 
-enum class State {
-    IDLE,
-    SWIPE,
-    HOLDING
-}
+    private var state = JSState.IDLE
 
-class JoystickView @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
-
-    private var state = State.IDLE
-
-    private val timer = object : CountDownTimer(1000, 1000) {
+    private val timer = object : CountDownTimer(300, 300) {
         override fun onTick(millisUntilFinished: Long) {
 
         }
 
         override fun onFinish() {
             Log.d("TEST", "Timer finished")
-            state = State.HOLDING
+            state = JSState.HELD
         }
     }
 
@@ -57,6 +46,7 @@ class JoystickView @JvmOverloads constructor(
     private var maxDistance = 0f
     private var rStick = 0f
     private var rBase = 0f
+    private  var params: WindowManager.LayoutParams
 
     private val stickPaint = Paint().apply {
         color = Color.GRAY
@@ -70,10 +60,10 @@ class JoystickView @JvmOverloads constructor(
         isAntiAlias = true
     }
 
-    private var listener: ((Direction) -> Unit)? = null
+    private var directionListener: ((JSDirection) -> Unit)? = null
 
-    fun setDirectionListener(listener: (Direction) -> Unit) {
-        this.listener = listener
+    fun setDirectionListener(listener: (JSDirection) -> Unit) {
+        this.directionListener = listener
     }
 
     private val resetAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
@@ -81,10 +71,28 @@ class JoystickView @JvmOverloads constructor(
         interpolator = BounceInterpolator()
     }
 
+    init {
+        params = createButtonLayoutParams()
+        wm.addView(this, params)
+    }
+
+    private fun createButtonLayoutParams(): WindowManager.LayoutParams {
+        return WindowManager.LayoutParams(
+            100, 100,
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+            PixelFormat.TRANSLUCENT
+        ).apply {
+            gravity = Gravity.START or Gravity.TOP
+            x = 0
+            y = 0
+        }
+    }
+
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         this.stickPoint = PointF(w.toFloat() / 2, h.toFloat() / 2)
         this.cp = min(w, h) / 2f
-        this.rBase = w / 3f
+        this.rBase = w / 2f - 10
         this.rStick = this.rBase * .9f
         this.maxDistance = this.rBase - this.rStick + 10
     }
@@ -94,24 +102,34 @@ class JoystickView @JvmOverloads constructor(
         canvas.drawCircle(stickPoint.x, stickPoint.y, rStick, stickPaint)
     }
 
+    private var initialX = 0
+    private var initialY = 0
+    private var initialTouchX = 0f
+    private var initialTouchY = 0f
+
     @SuppressLint("ClickableViewAccessibility")
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        if (event == null) {
-            return true
-        }
+    override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                touchDown(event)
+                timer.start()
+                initialX = params.x
+                initialY = params.y
+                initialTouchX = event.rawX
+                initialTouchY = event.rawY
             }
             MotionEvent.ACTION_MOVE -> {
-                if (state == State.HOLDING) {
-                    Log.d("TEST", "Button Dragging ${event.x}/${event.y}")
+                if (state == JSState.HELD) {
+                    params.x = initialX + (event.rawX - initialTouchX).toInt()
+                    params.y = initialY + (event.rawY - initialTouchY).toInt()
+                    wm.updateViewLayout(this, params)
                 } else {
-                    state = State.SWIPE
-                    touchMove(event.x, event.y)
+                    state = JSState.SWIPE
+                    timer.cancel()
+                    moveStick(event.x, event.y)
                 }
             }
             MotionEvent.ACTION_UP -> {
+                state = JSState.IDLE
                 timer.cancel()
                 touchUp()
             }
@@ -119,16 +137,8 @@ class JoystickView @JvmOverloads constructor(
         return true
     }
 
-    private var start = 0L
-    private fun touchDown(event: MotionEvent) {
-        start = System.currentTimeMillis()
-        timer.start()
-    }
-
     private fun touchUp() {
-        timer.cancel()
-        state = State.IDLE
-        takeAction()
+        fireAction()
         val cx = stickPoint.x
         val cy = stickPoint.y
         resetAnimator.addUpdateListener {
@@ -142,8 +152,7 @@ class JoystickView @JvmOverloads constructor(
         resetAnimator.start()
     }
 
-    private fun touchMove(x: Float, y: Float) {
-        timer.cancel()
+    private fun moveStick(x: Float, y: Float) {
 
         if (resetAnimator.isRunning) {
             resetAnimator.cancel()
@@ -158,17 +167,17 @@ class JoystickView @JvmOverloads constructor(
         invalidate()
     }
 
-    private fun takeAction() {
-        if (computeDistance() < maxDistance) {
-            listener?.invoke(Direction.CENTER)
+    private fun fireAction() {
+        if (computeDistance() + 10 < maxDistance) {
+//            directionListener?.invoke(JSDirection.CENTER)
             return
         }
 
         when (computeAngle()) {
-            in 0..45, in 316..360 -> listener?.invoke(Direction.UP)
-            in 46..135 -> listener?.invoke(Direction.RIGHT)
-            in 136..225 -> listener?.invoke(Direction.BOTTOM)
-            in 226..315 -> listener?.invoke(Direction.LEFT)
+            in 0..45, in 316..360 -> directionListener?.invoke(JSDirection.UP)
+            in 46..135 -> directionListener?.invoke(JSDirection.RIGHT)
+            in 136..225 -> directionListener?.invoke(JSDirection.BOTTOM)
+            in 226..315 -> directionListener?.invoke(JSDirection.LEFT)
         }
     }
 
@@ -199,4 +208,9 @@ class JoystickView @JvmOverloads constructor(
             angle.toInt()
         }
     }
+
+    fun onDestroy() {
+        wm.removeView(this)
+    }
+
 }

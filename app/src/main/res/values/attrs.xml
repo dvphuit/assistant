@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AutoSizeTextView">
+        <attr name="minTxtSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="StaticText">
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="hasBigStartLetter" format="boolean" />
+    </declare-styleable>
+
+</resources>
