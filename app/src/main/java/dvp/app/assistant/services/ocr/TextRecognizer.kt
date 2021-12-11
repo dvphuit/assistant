@@ -10,7 +10,7 @@ import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions
 import com.google.mlkit.vision.text.japanese.JapaneseTextRecognizerOptions
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import dvp.app.assistant.services.translator.TextOverlayView
+import dvp.app.assistant.services.views.TextOverlayView
 
 object TextRecognizer {
 
@@ -27,12 +27,10 @@ object TextRecognizer {
     }
 
     private val japaneseRecognizer by lazy {
-        TextRecognition.getClient(
-            JapaneseTextRecognizerOptions.Builder().build()
-        )
+        TextRecognition.getClient(JapaneseTextRecognizerOptions.Builder().build())
     }
 
-    private var textRecognizer: TextRecognizer = latinRecognizer
+    private var textRecognizer: TextRecognizer = japaneseRecognizer
 
     private var inputImage: InputImage? = null
     private var overlayView: TextOverlayView? = null
@@ -83,7 +81,8 @@ object TextRecognizer {
                     (this.right / ratio.first).toInt(),
                     (this.bottom / ratio.second).toInt()
                 )
-                TextBlock(rect, it.text)
+//                TextBlock(rect, TextFilter.removeBr(it.text))
+                TextBlock(rect, it.text, lines = it.lines.size)
             }
         }
     }

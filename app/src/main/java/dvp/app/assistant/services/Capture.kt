@@ -1,4 +1,4 @@
-package dvp.app.assistant.services.translator
+package dvp.app.assistant.services
 
 import android.app.Activity
 import android.content.Context.WINDOW_SERVICE
@@ -11,8 +11,8 @@ import dvp.app.assistant.screenshot.ScreenShot
 import dvp.app.assistant.services.ocr.TextBlock
 import dvp.app.assistant.services.ocr.TextRecognizer
 import dvp.app.assistant.services.translator.api.Apis
-import dvp.app.assistant.services.translator.model.Sentence
 import dvp.app.assistant.services.translator.model.Translate
+import dvp.app.assistant.services.views.DetectionView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ import retrofit2.Response
 
 object Capture {
 
-    private var overlay: TextOverlayView? = null
+    private var overlay: DetectionView? = null
     private var screenShot: ScreenShot? = null
     private lateinit var windowManager: WindowManager
     private val textOverlayParams by lazy {
@@ -39,8 +39,8 @@ object Capture {
         windowManager = activity.getSystemService(WINDOW_SERVICE) as WindowManager
     }
 
-    fun setOverlay(overlayView: TextOverlayView) {
-        this.overlay = overlayView
+    fun setOverlay(overlayView: DetectionView) {
+        overlay = overlayView
     }
 
     fun screenShoot() {
@@ -53,7 +53,7 @@ object Capture {
                         translate(textBlocks) { translated ->
                             overlay?.apply {
                                 windowManager.addView(this, textOverlayParams)
-                                drawTextBlocks(translated)
+                                setTextBlocks(translated)
                             }
                         }
 

@@ -1,4 +1,4 @@
-package dvp.app.assistant.services.joystick
+package dvp.app.assistant.services.views.joystick
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
@@ -13,8 +13,6 @@ import android.view.View
 import android.view.WindowManager
 import android.view.animation.BounceInterpolator
 import androidx.annotation.RequiresApi
-import dvp.app.assistant.services.joystick.JSDirection
-import dvp.app.assistant.services.joystick.JSState
 import kotlin.math.atan2
 import kotlin.math.min
 import kotlin.math.pow

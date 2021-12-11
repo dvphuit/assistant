@@ -12,7 +12,7 @@ interface TranslateService {
     fun listSentence(
         @Query("client") client: String = "gtx",
         @Query("sl") source: String = "ja",
-        @Query("tl") destination: String = "vi",
+        @Query("tl") destination: String = "en",
         @Query("dt") dt: String = "t",
         @Query("dj") dj: Int = 1,
         @Query("q") query: String,

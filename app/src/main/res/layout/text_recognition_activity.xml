@@ -1,125 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="0dp">
 
 
-    <dvp.app.assistant.ui.Custom
-        android:layout_width="match_parent"
-        android:layout_height="300dp" />
+<!--    <dvp.app.assistant.ui.AutoSizeText-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:background="#8BC34A" />-->
 
-    <dvp.app.assistant.ui.AutoTextSize
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:maxLines="100"
-        android:textSize="100sp"
-        android:background="#8BC34A"
-        />
+<!--    <dvp.app.assistant.ui.AutoTextSize-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:background="#8BC34A"-->
+<!--        android:maxLines="100"-->
+<!--        android:text="A material metaphor is\n\ntheand a system of motion. sdmfjk sdkjf sdfjk sdfds"-->
+<!--        android:textSize="100sp" />-->
 
-    <!--    <dvp.app.assistant.ui.StaticText-->
-    <!--        android:id="@+id/textView1"-->
-    <!--        android:layout_width="215dp"-->
-    <!--        android:layout_height="100dp"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:background="@android:color/darker_gray"-->
-    <!--        android:text="A material metaphor is the unifying theory of a rationalized space and a system of motion. sdmfjk sdkjf sdfjk sdfds"-->
-    <!--        android:textSize="18sp"/>-->
-    <!--        <ImageView-->
-    <!--            android:id="@+id/imageView"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            android:adjustViewBounds="true"-->
-    <!--            app:layout_constraintBottom_toTopOf="@id/layoutMenu"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+<!--        <dvp.app.assistant.ui.StaticText-->
+<!--            android:id="@+id/textView1"-->
+<!--            android:layout_width="215dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:background="@android:color/darker_gray"-->
+<!--            android:text="A material metaphor is the unifying theory of a rationalized space and a system of motion. sdmfjk sdkjf sdfjk sdfds"-->
+<!--            android:textSize="18sp"/>-->
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintBottom_toTopOf="@id/layoutMenu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <!--        <dvp.app.assistant.services.translator.TextOverlayView-->
-    <!--            android:id="@+id/overlayView"-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            android:background="#8BA8A8A8"-->
-    <!--            app:layout_constraintBottom_toBottomOf="@id/imageView"-->
-    <!--            app:layout_constraintEnd_toEndOf="@id/imageView"-->
-    <!--            app:layout_constraintStart_toStartOf="@id/imageView"-->
-    <!--            app:layout_constraintTop_toTopOf="@id/imageView" />-->
-
-
-    <!--        <ScrollView-->
-    <!--            android:id="@+id/scrollView"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            android:layout_marginTop="16dp"-->
-    <!--            android:visibility="gone"-->
-
-    <!--            app:layout_constraintBottom_toTopOf="@id/layoutMenu"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toBottomOf="@id/overlayView">-->
-
-    <!--            <TextView-->
-    <!--                android:id="@+id/textView"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:text="TEST" />-->
-    <!--        </ScrollView>-->
+            <dvp.app.assistant.services.views.TextOverlayView
+                android:id="@+id/overlayView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#8BA8A8A8"
+                app:layout_constraintBottom_toBottomOf="@id/imageView"
+                app:layout_constraintEnd_toEndOf="@id/imageView"
+                app:layout_constraintStart_toStartOf="@id/imageView"
+                app:layout_constraintTop_toTopOf="@id/imageView" />
 
 
-    <!--        <LinearLayout-->
-    <!--            android:id="@+id/layoutMenu"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:gravity="center"-->
-    <!--            android:orientation="horizontal"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent">-->
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
 
-    <!--            <RadioGroup-->
-    <!--                android:id="@+id/langGroup"-->
-    <!--                android:layout_width="wrap_content"-->
-    <!--                android:layout_height="30dp"-->
-    <!--                android:gravity="center"-->
-    <!--                android:orientation="horizontal"-->
-    <!--                app:layout_constraintBottom_toBottomOf="parent">-->
+                app:layout_constraintBottom_toTopOf="@id/layoutMenu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/overlayView">
 
-    <!--                <RadioButton-->
-    <!--                    android:id="@+id/rLatin"-->
-    <!--                    android:layout_width="100dp"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:checked="true"-->
-    <!--                    android:text="Latin" />-->
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TEST" />
+            </ScrollView>
 
-    <!--                <RadioButton-->
-    <!--                    android:id="@+id/rChinese"-->
-    <!--                    android:layout_width="100dp"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:text="Chinese" />-->
 
-    <!--                <RadioButton-->
-    <!--                    android:id="@+id/rJapanese"-->
-    <!--                    android:layout_width="100dp"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:text="Japanese" />-->
+            <LinearLayout
+                android:id="@+id/layoutMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent">
 
-    <!--            </RadioGroup>-->
+                <RadioGroup
+                    android:id="@+id/langGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
-    <!--            <Spinner-->
-    <!--                android:id="@+id/spinner"-->
-    <!--                android:layout_width="0dp"-->
-    <!--                android:layout_height="30dp"-->
-    <!--                android:layout_weight="1"-->
-    <!--                app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                app:layout_constraintStart_toStartOf="parent"-->
-    <!--                app:layout_constraintTop_toBottomOf="@id/imageView" />-->
+                    <RadioButton
+                        android:id="@+id/rLatin"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Latin" />
 
-    <!--            <Button-->
-    <!--                android:id="@+id/btProcess"-->
-    <!--                style="?buttonStyleSmall"-->
-    <!--                android:layout_width="wrap_content"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:onClick="processImage"-->
-    <!--                android:text="Process" />-->
-    <!--        </LinearLayout>-->
+                    <RadioButton
+                        android:id="@+id/rChinese"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Chinese" />
 
-</LinearLayout>
+                    <RadioButton
+                        android:id="@+id/rJapanese"
+                        android:layout_width="100dp"
+                        android:checked="true"
+                        android:layout_height="wrap_content"
+                        android:text="Japanese" />
+
+                </RadioGroup>
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+                <Button
+                    android:id="@+id/btProcess"
+                    style="?buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="processImage"
+                    android:text="Process" />
+            </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

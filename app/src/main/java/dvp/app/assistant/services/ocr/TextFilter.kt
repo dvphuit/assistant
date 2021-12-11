@@ -8,4 +8,6 @@ internal object TextFilter {
     private val re = Regex("$hiragana|$katakana|$kanji")
 
     fun containsJp(text: String) = re.containsMatchIn(text)
+
+    fun removeBr(text: String) = text.replace("\n", "")
 }

@@ -1,4 +1,4 @@
-//package dvp.app.assistant.services.joystick
+//package dvp.app.assistant.services.views.joystick
 //
 //import android.animation.ValueAnimator
 //import android.graphics.PointF

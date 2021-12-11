@@ -11,10 +11,9 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import dvp.app.assistant.base.ext.showToast
-import dvp.app.assistant.services.joystick.JSDirection
-import dvp.app.assistant.services.joystick.JoystickView
-import dvp.app.assistant.services.translator.Capture
-import dvp.app.assistant.services.translator.TextOverlayView
+import dvp.app.assistant.services.views.DetectionView
+import dvp.app.assistant.services.views.joystick.JSDirection
+import dvp.app.assistant.services.views.joystick.JoystickView
 
 
 class OverlayService : Service() {
@@ -34,7 +33,7 @@ class OverlayService : Service() {
         super.onCreate()
         createNotification()
 
-        TextOverlayView(this)
+        DetectionView(this)
             .also(Capture::setOverlay)
 
 

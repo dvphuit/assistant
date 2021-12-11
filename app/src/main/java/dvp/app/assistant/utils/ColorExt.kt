@@ -1,6 +1,5 @@
 package dvp.app.assistant.utils
 
-import android.os.Build
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 
@@ -12,9 +11,10 @@ import androidx.compose.ui.graphics.Color
 
 @Stable
 fun Color.asNativeColor(): Int {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        android.graphics.Color.argb(alpha, red, green, blue)
-    } else {
-        TODO("VERSION.SDK_INT < O")
-    }
+    return android.graphics.Color.argb(alpha, red, green, blue)
+}
+
+fun Color.getContrast(): Color {
+    val y: Float = (299 * this.red + 587 * this.green + 114 * this.blue) / 1000
+    return if (y >= 128) Color.Black else Color.White
 }
