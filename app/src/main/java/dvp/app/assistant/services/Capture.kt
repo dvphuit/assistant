@@ -72,25 +72,32 @@ object Capture {
     private fun translate(textBlocks: List<TextBlock>, sentences: (List<TextBlock>) -> Unit) {
         val text = textBlocks.joinToString("#") { it.src }
 
-        GlobalScope.launch(Dispatchers.IO) {
-            Apis.translate()
-                .listSentence(query = text)
-                .enqueue(object : retrofit2.Callback<Translate> {
-                    override fun onResponse(call: Call<Translate>, response: Response<Translate>) {
-                        val translated = response.body()!!.sentences
-                            .joinToString { it.trans.replace("\n","") }
-                            .split("#")
-                            .mapIndexed { index, s ->
-                                textBlocks[index].apply { this.trans = s }
-                            }
-                        sentences.invoke(translated)
-                    }
+        val translated = text
+            .split("#")
+            .mapIndexed { index, s ->
+                textBlocks[index].apply { this.trans = s }
+            }
+        sentences.invoke(translated)
 
-                    override fun onFailure(call: Call<Translate>, t: Throwable) {
-                        Log.d("TEST", t.message ?: "empty")
-                    }
-                })
-        }
+//        GlobalScope.launch(Dispatchers.IO) {
+//            Apis.translate()
+//                .listSentence(query = text)
+//                .enqueue(object : retrofit2.Callback<Translate> {
+//                    override fun onResponse(call: Call<Translate>, response: Response<Translate>) {
+//                        val translated = response.body()!!.sentences
+//                            .joinToString { it.trans.replace("\n","") }
+//                            .split("#")
+//                            .mapIndexed { index, s ->
+//                                textBlocks[index].apply { this.trans = s }
+//                            }
+//                        sentences.invoke(translated)
+//                    }
+//
+//                    override fun onFailure(call: Call<Translate>, t: Throwable) {
+//                        Log.d("TEST", t.message ?: "empty")
+//                    }
+//                })
+//        }
     }
 
 }

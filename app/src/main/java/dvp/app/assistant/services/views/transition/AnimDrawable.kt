@@ -3,6 +3,7 @@ package dvp.app.assistant.services.views.transition
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.IntProperty
+import android.util.Log
 import android.util.Property
 import androidx.annotation.ColorInt
 import androidx.core.graphics.toRectF
@@ -26,6 +27,7 @@ class RectDrawable(@ColorInt color: Int, val rect: Rect) : ColorDrawable() {
     }
 
     override fun draw(canvas: Canvas) {
+        Log.d("TEST","draw color ${paint.color} -- $rect")
         canvas.drawRoundRect(rect.toRectF(), 5.dp, 5.dp, paint)
     }
 }

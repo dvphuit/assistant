@@ -9,7 +9,7 @@ plugins {
 android {
 
     compileSdk = appConfig.compileSdkVersion
-    buildToolsVersion = appConfig.buildToolsVersion
+//    buildToolsVersion = appConfig.buildToolsVersion
 
     defaultConfig {
         applicationId = ("dvp.app.assistant")
@@ -80,6 +80,7 @@ dependencies {
     implementHilt()
     implementSquareup()
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-//    implementation("com.github.iglaweb:AutoSizeTextView:v1.0")
+    implementation("com.andkulikov:transitionseverywhere:2.1.0")
+    implementation ("com.tomergoldst.android:tooltips:1.1.1")
 
 }

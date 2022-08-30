@@ -63,7 +63,7 @@ class BubbleTextTransition : ChangeBounds() {
 
         return AnimatorSet().apply {
             playTogether(changeBounds, colorAnimator)
-            duration = 300
+            duration = 3000
             interpolator = AnimationUtils.loadInterpolator(
                 sceneRoot.context,
                 android.R.interpolator.fast_out_slow_in

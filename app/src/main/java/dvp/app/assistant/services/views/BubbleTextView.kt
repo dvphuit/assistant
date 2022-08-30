@@ -129,7 +129,6 @@ class BubbleTextView : TextView {
             )
             setEndBound(endRect!!)
             setBackground(Color.LTGRAY, Color.RED, backgroundData!!)
-
             addTarget(this@BubbleTextView)
         }
 
@@ -149,9 +148,6 @@ class BubbleTextView : TextView {
             addTarget(this@BubbleTextView)
         }
         TransitionManager.beginDelayedTransition(parent, transition)
-
-//        this.parent.removeView(this@BubbleTextView)
-
         this.isShowing = false
     }
 

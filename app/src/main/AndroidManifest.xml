@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="dvp.app.assistant.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,7 +17,7 @@
         android:theme="@style/Theme.AZManga"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="dvp.app.assistant.ui.TextRecognitionActivity"
+            android:name=".ui.TextRecognitionActivity"
             android:exported="true"
             android:theme="@style/Theme.AZManga.NoActionBar">
             <intent-filter>
@@ -28,7 +28,7 @@
         </activity>
 
         <service
-            android:name="dvp.app.assistant.services.OverlayService"
+            android:name=".services.OverlayService"
             android:foregroundServiceType="mediaProjection" />
     </application>
 

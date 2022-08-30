@@ -142,14 +142,18 @@ class FitTextImpl(private val parent: View) : IDraw {
         while (lo <= hi) {
             mid = lo + hi ushr 1
             val midValCmp = testFontSize(text, rect, mid, availableSpace)
-            if (midValCmp < 0) {
-                lastBest = lo
-                lo = mid + 1
-            } else if (midValCmp > 0) {
-                hi = mid - 1
-                lastBest = hi
-            } else {
-                return mid
+            when {
+                midValCmp < 0 -> {
+                    lastBest = lo
+                    lo = mid + 1
+                }
+                midValCmp > 0 -> {
+                    hi = mid - 1
+                    lastBest = hi
+                }
+                else -> {
+                    return mid
+                }
             }
         }
         return lastBest
